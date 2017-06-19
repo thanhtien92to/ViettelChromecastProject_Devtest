@@ -173,7 +173,7 @@ var makeRequest=function(uri,data)
         {
             if(xhr.status===200 || xhr.status===304)
             {
-                console.log("https content : "JSON.stringify(xhr.response));
+                console.log("https content : " + JSON.stringify(xhr.response));
             }
         }
         else    console.log("Response recieved with status "+xhr.status);
