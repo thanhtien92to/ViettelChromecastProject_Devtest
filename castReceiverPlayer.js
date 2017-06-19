@@ -147,7 +147,7 @@ castReceiverPlayer.ChromecastPlayer = function (domElement) { //context this = c
 		crossDomain: true,
         success: function(result){
         	console.log("https content pass" + JSON.stringify(result))
-    	}
+    	},
 		error: function (xhr, status) {
             console.log("xmljquery fail" + JSON.stringify(xhr));
         }
