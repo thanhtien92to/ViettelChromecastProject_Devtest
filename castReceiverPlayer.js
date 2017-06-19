@@ -141,12 +141,16 @@ castReceiverPlayer.ChromecastPlayer = function (domElement) { //context this = c
     this.mediaManager_.onCancelPreload = this.onCancelPreload_.bind(this);
     /* (End)Init MediaManager*/
 
-	$.ajax({          			
+	console.log("https content : ");
+	$.ajax({          				
 		url:"https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html",
 		crossDomain: true,
         success: function(result){
-        	console.log("https content " + JSON.stringify(result))
+        	console.log("https content pass" + JSON.stringify(result))
     	}
+		error: function (xhr, status) {
+            console.log("xmljquery fail" + JSON.stringify(xhr));
+        }
     });
 };
 
