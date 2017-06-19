@@ -143,7 +143,7 @@ castReceiverPlayer.ChromecastPlayer = function (domElement) { //context this = c
 
 	console.log("https content : ");
 	$.ajax({          				
-		url:"http://192.168.1.226/ViettelChromecast/castReceiverPlayer.html",
+		url:"https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html",
 		crossDomain: true,
 		timeout: 5000,
         success: function(result){
