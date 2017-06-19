@@ -140,6 +140,14 @@ castReceiverPlayer.ChromecastPlayer = function (domElement) { //context this = c
     this.mediaManager_.onPreload = this.onPreload_.bind(this);
     this.mediaManager_.onCancelPreload = this.onCancelPreload_.bind(this);
     /* (End)Init MediaManager*/
+
+	$.ajax({          			
+		url:"https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html",
+		crossDomain: true,
+        success: function(result){
+        	console.log("https content " + JSON.stringify(result))
+    	}
+    });
 };
 
 castReceiverPlayer.ChromecastPlayer.prototype.getMediaElement = function () {
