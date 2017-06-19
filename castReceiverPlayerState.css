@@ -1,0 +1,251 @@
+/*Define webkit animation*/
+@-webkit-keyframes progress-rotating {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes progress-ltr-loading{
+  0% { margin-left: -100%; }
+  100% { margin-left: 100%; }
+}
+@-webkit-keyframes media-infor-fading{
+  0% {opacity: 0; display: block;}
+  1% {opacity: 1; display: block;}
+  66% {opacity: 1; display: block;}
+  100% {opacity: 0; display: none;}
+}
+@-webkit-keyframes play-pause-fading{
+  0% {opacity: 0; display: block;}
+  1% {opacity: 1; display: block;}
+  66% {opacity: 1; display: block;}
+  100% {opacity: 0; display: none;}
+}
+@-webkit-keyframes media-infor-queue-insert-fading {
+  0% {opacity: 0; display: block;}
+  1% {opacity: 1; display: block;}
+  80% {opacity: 1; display: block;}
+  100% {opacity: 0; display: none;}
+}
+/* (End) Define webkit animation*/
+
+/* player type = video, state = launching*/
+.media-player-dom[type="video"][state="launching"] .media-info-show-part,
+.media-player-dom[type="video"][state="launching"] .chrome-cast-logo{
+  display: block;
+}
+/*
+.media-player-dom[type="video"][state="launching"] .spinner-progress {
+  -webkit-animation: progress-rotating 1s infinite linear;
+  position: absolute;
+  background-image: url("image/bufferingProgess.png");
+  bottom: 50%;
+  left: 50%;
+  width: 150px;
+  height: 150px;
+  margin-bottom: -75px;
+  margin-left: -75px;
+}*/
+.media-player-dom[type="video"][state="launching"] .media-info,
+.media-player-dom[type="video"][state="launching"] .media-artwork {
+  display: none;
+}
+/* (End) player type = video, state = launching*/
+
+/* media-player-dom type = video, state = loading*/
+.media-player-dom[type="video"][state="loading"] .media-info-show-part{
+  display: block;
+}
+.media-player-dom[type="video"][state="loading"] .watermark {
+    display: none;
+}
+.media-player-dom[type="video"][state="loading"] .controls {
+  /**/display: block;/**/
+  /**display: none;/**/
+}
+/*
+.media-player-dom[type="video"][state="loading"] .controls-progress-inner {
+  width: 100% !important;
+  -webkit-animation: progress-ltr-loading 2s infinite linear;
+}*/
+.media-player-dom[type="video"][state="loading"] .controls-play-pause {
+  display: block;
+  visibility: visible;
+  background-image: url("image/bufferingProgess.png");
+  -webkit-animation: progress-rotating 1s infinite linear;
+}
+
+.media-player-dom[type="video"][state="loading"] .controls-cur-time,
+.media-player-dom[type="video"][state="loading"] .controls-total-time,
+.media-player-dom[type="video"][state="loading"] .controls-progress-thumb{
+  display: none;
+}
+/* (End) player type = video, state = loading*/
+
+/* player type = video, state = buffering*/
+.media-player-dom[type="video"][state="buffering"] .media-info-show-part,
+.media-player-dom[type="video"][state="buffering"] .shadow-effect {
+  display: block;
+  visibility: visible;
+}
+.media-player-dom[type="video"][state="buffering"] video{
+  display: block;
+}
+.media-player-dom[type="video"][state="buffering"] .shadow-effect {
+  opacity: 0.6;
+}
+.media-player-dom[type="video"][state="buffering"] .controls-play-pause {
+  display: block;
+  visibility: visible;
+  background-image: url("image/bufferingProgess.png");
+  -webkit-animation: progress-rotating 1s infinite linear;
+}
+.media-player-dom[type="video"][state="buffering"] .media-artwork,
+.media-player-dom[type="video"][state="buffering"] .media-info {
+  display: none;
+}
+.media-player-dom[type="video"][state="buffering"]:not(.seeking) .controls-cur-time,
+.media-player-dom[type="video"][state="buffering"]:not(.seeking) .controls-total-time,
+.media-player-dom[type="video"][state="buffering"]:not(.seeking) .controls-progress,
+.media-player-dom[type="video"][state="buffering"]:not(.seeking) .controls,
+.media-player-dom[type="video"][state="buffering"] .controls {
+    display: block !important;
+}
+.media-player-dom[type="video"][state="buffering"] .controls-cur-time,
+.media-player-dom[type="video"][state="buffering"] .controls-total-time,
+.media-player-dom[type="video"][state="buffering"] .controls-progress {
+    display: block !important;
+}
+.media-player-dom[type="video"][state="buffering"][preview="true"] .preview-info {
+  display: flex;
+}
+/* (End) player type = video, state = buffering*/
+
+/* player type = video, state = paused*/
+.media-player-dom[type="video"][state="paused"] .media-info-show-part,
+.media-player-dom[type="video"][state="paused"] .shadow-effect,
+.media-player-dom[type="video"][state="paused"] .watermark {
+  display: block;
+  visibility: visible;
+}
+.media-player-dom[type="video"][state="paused"] video {
+  display: block;
+}
+.media-player-dom[type="video"][state="paused"] .watermark {
+    display: none;
+}
+.media-player-dom[type="video"][state="paused"] .controls,
+.media-player-dom[type="video"][state="paused"]:not(.seeking) .controls,
+.media-player-dom[type="video"][state="paused"]:not(.seeking) .controls-cur-time,
+.media-player-dom[type="video"][state="paused"]:not(.seeking) .controls-total-time,
+.media-player-dom[type="video"][state="paused"]:not(.seeking) .controls-progress {
+  /**/display: block;/**/
+  /**display: none;/**/
+}
+
+.media-player-dom[type="video"][state="paused"] .controls-play-pause {
+  display: block;
+  visibility: visible;
+  background-image: url("image/paused.png");
+}
+.media-player-dom[type="video"][state="paused"][live="true"] .controls-cur-time,
+.media-player-dom[type="video"][state="paused"][live="true"] .controls-total-time,
+.media-player-dom[type="video"][state="paused"][live="true"] .controls-progress {
+  /**display: none !important;**/
+    display: block;
+}
+.media-player-dom[type="video"][state="paused"] .controls-cur-time,
+.media-player-dom[type="video"][state="paused"] .controls-total-time,
+.media-player-dom[type="video"][state="paused"] .controls-progress {
+    display: block;
+}
+.media-player-dom[type="video"][state="paused"] .media-info {
+  opacity: 1;
+  /*-webkit-animation: media-infor-fading 12s linear 4s;/**/
+}
+.media-player-dom[type="video"][state="paused"][preview="true"] .media-info {
+  opacity: 1;
+}
+.media-player-dom[type="video"][state="paused"] .shadow-effect {
+  opacity: 0.6;
+}
+/* (End) player type = video, state = paused*/
+
+/* player type = video, playing = playing*/
+.media-player-dom[type="video"][state="playing"] .media-info-show-part,
+.media-player-dom[type="video"][state="playing"] .shadow-effect,
+.media-player-dom[type="video"][state="playing"] .watermark {
+  display: block;
+  visibility: hidden;
+}
+.media-player-dom[type="video"][state="playing"].seeking .media-info-show-part,
+.media-player-dom[type="video"][state="playing"].seeking .shadow-effect,
+.media-player-dom[type="video"][state="playing"][preview="true"] .media-info-show-part,
+.media-player-dom[type="video"][state="playing"][preview="true"] .shadow-effect,
+.media-player-dom[type="video"][state="playing"][preview="true"] .watermark {
+  display: block;
+  visibility: visible;
+}
+.media-player-dom[type="video"][state="playing"] video{
+  display: block;
+}
+.media-player-dom[type="video"][state="playing"].seeking .controls {
+  /**display: block/**/;
+  /**/display: none/**/;
+}
+.media-player-dom[type="video"][state="playing"].seeking .media-info,
+.media-player-dom[type="video"][state="playing"][preview="true"] .media-info {
+  display: none;
+}
+.media-player-dom[type="video"][state="playing"]:not(.seeking) .controls-play-pause{
+  display: block;
+  visibility: visible;
+  opacity: 0;
+  background-image: url("image/playing.png");
+  -webkit-animation: play-pause-fading 3s linear;
+}
+.media-player-dom[type="video"][state="playing"]:not(.seeking) .controls-cur-time {
+  margin-left: 0;
+}
+.media-player-dom[type="video"][state="playing"][live="true"] .controls-cur-time,
+.media-player-dom[type="video"][state="playing"][live="true"] .controls-total-time,
+.media-player-dom[type="video"][state="playing"][live="true"] .controls-progress {
+  display: none !important;
+}
+.media-player-dom[type="video"][state="playing"][preview="true"] .preview-info {
+  display: flex;
+}
+.media-player-dom[type="video"][state="playing"][preview="true"].seeking .preview-info {
+  display: flex;
+}
+/* (End) player type = video, playing = playing*/
+
+/* player playing = idle*/
+.media-player-dom[state="idle"] .media-info-show-part,
+.media-player-dom[state="idle"] .spinner-progress{
+  display: none;
+}
+.media-player-dom[state="idle"] .chrome-cast-logo {
+  display: block;
+}
+/* (End) player playing = idle*/
+
+/* player playing = done*/
+.media-player-dom[state="done"] .media-info-show-part {
+  display: none;
+}
+.media-player-dom[state="done"] {
+  background-image: url('image/done.png');
+}
+/* player playing = done*/
+
+/* style queue event*/
+.media-player-dom:not(.queue-event) .media-info-queue-frame,
+.media-player-dom:not(.queue-event) .media-info-queue-insert {
+    display: none;
+    /**-webkit-animation: media-infor-queue-insert-fading 5s infinite linear;/**/
+}
+.media-player-dom.queue-event .media-info-queue-insert {
+  display: block;
+    /**/-webkit-animation: media-infor-queue-insert-fading 5s infinite linear;/**/
+}
+
+/* (End) style queue event*/

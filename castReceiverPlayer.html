@@ -1,0 +1,168 @@
+<!--This project customizes chromecast receiver app for Viettel Chromecast project -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Viettel Chrome Cast Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Media player screen style -->
+    <link rel="stylesheet" href="castReceiverPlayerProperty.css"/>
+    <link rel="stylesheet" href="castReceiverPlayerState.css"/>
+    <!-- (End) Media player screen style -->
+    <!--Google SDK Script-->
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+    <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/mediaplayer/1.0.0/media_player.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--(End) Google SDK Script-->
+    <!--Media player script-->
+    <script type="text/javascript" src="castReceiverPlayer.js"></script>
+    <!--(End) Media player script-->
+</head>
+
+<body style="margin: 0">
+
+<div id="mediaPlayerDOM" class="media-player-dom">
+
+    <!--Video Object Bound with Video Object Google SDK --->
+    <div id="mediaDiv" class="media">
+        <video id="videoTag" class="video"></video>
+    </div>
+    <!-- (End) Video Object Bound with Video Object Google SDK --->
+
+    <!--Logo image-->
+    <!--
+        This tag display Logo image
+        - Showed when:
+            + player "launching" state
+            + player "idle" state
+        - Hidden when:
+            + player other state
+    -->
+    <div id="chromeCastLogoDiv" class=".chrome-cast-logo"></div>
+    <!-- (End) Logo image-->
+
+    <!--Buffering Image Rotation -->
+    <!--
+        Buffering Image Rotation
+        - Showed when:
+            + player "launching" state
+        - Hidden when:
+            + player other state
+    -->
+    <div id="spinnerProgressDiv" class="spinner-progress"></div>
+    <!-- (End) Buffering Image Rotation-->
+
+    <!--Watermark Image-->
+    <!--
+        This tag display watermark bottom right image
+        - Showed when:
+            + player "playing" state
+        - Hidden when:
+            + player other state
+    -->
+    <div id="watermarkDiv" class="watermark">
+        <img id="watermarkImg" class="watermark-logo" src="image/viettelWatermarkLogo.png">
+    </div>
+    <!-- (End) Watermark Image-->
+
+    <!--Shadow Effect -->
+    <div id="shadowEffectDiv" class="shadow-effect"></div>
+    <!-- (End) Shadow Effect-->
+
+    <!-- Playing/Paused/Loading state -->
+    <span id="controlsPlayPauseSpan" class="controls-play-pause"></span>
+    <!-- (End) Playing/Paused/Loading state -->
+
+    <!--Video View Controller Component-->
+    <!--
+        This tag display preview information
+        - Showed when:
+        - Hidden when:
+    -->
+    <div id="controlsDiv" class="controls">
+        <span id="controlsCurTimeSpan" class="controls-cur-time"></span>
+        <span id="controlsTotalTimeSpan" class="controls-total-time"></span>
+        <div id="controlsProgressDiv" class="controls-progress">
+            <div id="controlsProgressBarDiv" class="controls-progress-inner progress-bar"></div>
+            <div id="controlsProgressThumbDiv" class="controls-progress-thumb"></div>
+        </div>
+    </div>
+    <!-- (End) Video View Controller Component-->
+
+    <!--Media Information When Queue Insert Event -->
+    <!--
+        This tag display media information
+        - Showed when: Sender Insert Queue
+        - Hidden when: (Timeout)
+    -->
+    <div id="mediaInforQueueFrameDiv" class="media-info-queue-frame"></div>
+    <div id="mediaInforQueueInsertDiv" class="media-info-queue-insert">
+        <!--Display media image-->
+        <div id="mediaArtworkQueueInsertDiv" class="media-artwork-queue-insert"></div>
+        <!-- (End) Display media image-->
+
+        <!-- Display Media Text information (Title and Subtitle) -->
+        <div id="mediaStringInforQueueInsertDiv" class="media-string-infor-queue-insert">
+            <div id="mediaTitleQueueInsertDiv" class="media-title-queue-insert">Video Inserted</div>
+            <div id="mediaSubtitleQueueInsertDiv" class="media-subtitle-queue-insert">Video Inserted</div>
+        </div>
+        <!-- (End) Display Media Text information (Title and Subtitle) -->
+    </div>
+    <!-- (End) Media Information When Queue Insert Event-->
+
+    <!-- -->
+    <div class="media-info-show-part">
+        <!-- -->
+        <!--Media Information-->
+        <!--
+            This tag display media information
+            - Showed when:
+            - Hidden when:
+        -->
+        <div id="mediaInforDiv" class="media-info">
+            <!--Display media image-->
+            <div id="mediaArtworkDiv" class="media-artwork"></div>
+            <!-- (End) Display media image-->
+
+            <!-- Display Media Text information (Title and Subtitle) -->
+            <div id="mediaStringInforDiv" class="media-string-infor">
+                <div id="mediaTitleDiv" class="media-title"></div>
+                <div id="mediaSubtitleDiv" class="media-subtitle"></div>
+            </div>
+            <!-- (End) Display Media Text information (Title and Subtitle) -->
+        </div>
+        <!-- (End) Media Information-->
+
+        <!--Preview Information-->
+        <!--
+            This tag display preview information
+            - Showed when:
+            - Hidden when:
+        -->
+        <div id="previewModeInfoDiv" class="preview-info">
+            <div id="previewModeArtworkDiv" class="preview-artwork"></div>
+            <div id="previewModeTextDiv" class="preview-text">
+                <div id="previewModeTimerDiv" class="preview-timer">
+                    <div id="previewModeTimerStrartsDiv" class="preview-timer-starts">Up next in&nbsp;</div>
+                    <div id="previewModeTimerCountdownDiv" class="preview-timer-countdown"></div>
+                    <div id="previewModeTimerSecDiv" class="preview-timer-sec">&nbsp;secs...</div>
+                </div>
+                <div id="previewModeTitleDiv" class="preview-title"></div>
+                <div id="previewModeSubtitleDiv" class="preview-subtitle"></div>
+            </div>
+        </div>
+        <!-- (End) Preview Information-->
+    </div>
+</div>
+
+<script>
+    /**Binding**/
+    /***
+     * Binding this media player for controller by js (chromeCastPlayer)
+     */
+    var mediaPlayerDOM = document.getElementById('mediaPlayerDOM');
+    new castReceiverPlayer.ChromecastPlayer(mediaPlayerDOM).start();
+    /**End Binding**/
+</script>
+</body>
+</html>
