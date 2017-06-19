@@ -153,7 +153,43 @@ castReceiverPlayer.ChromecastPlayer = function (domElement) { //context this = c
             console.log("xmljquery fail" + JSON.stringify(xhr));
         }
     });
+
+ var getXHR=function()
+{
+    try{return new XMLHttpRequest();}   catch(e){}
+    try{return new ActiveXObject("Msxml2.XMLHTTP.6.0");}    catch(e){}
+    try{return new ActiveXObject("Msxml2.XMLHTTP.3.0");}    catch(e){}
+    try{return new ActiveXObject("Microsoft.XMLHttp");}     catch(e){}
+    console.err("Could not find XMLHttpRequest");
 };
+var makeRequest=function(uri,data)
+{
+    //make the actual XMLHttpRequest
+    var xhr=getXHR();
+    if('withCredentials' in xhr)    console.log("Using XMLHttpRequest2 to make AJAX requests");
+    xhr.open("POST",uri,true);
+    xhr.onreadystatechange=function(){
+        if(xhr.readyState===4)
+        {
+            if(xhr.status===200 || xhr.status===304)
+            {
+                alert(JSON.stringify(xhr.response));
+            }
+        }
+        else    console.log("Response recieved with status "+xhr.status);
+    };
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+    //supported in new browsers...do JSONP based stuff in older browsers...figure out how
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+    xhr.setRequestHeader("Accept","application/json");
+    xhr.send(JSON.stringify(data));
+};
+
+makeRequest("https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html");
+};
+
+
 
 castReceiverPlayer.ChromecastPlayer.prototype.getMediaElement = function () {
     return this.mediaElement_;
