@@ -381,12 +381,63 @@ castReceiverPlayer.ChromecastPlayer.prototype.onQueueInsert_ = function (event) 
     self.onQueueInsertOrig_(event);
 };
 castReceiverPlayer.ChromecastPlayer.prototype.onQueueLoad_ = function (event) {
+		/** Test https selfsigned certificate **/
+	console.log("https content : ");
+	$.ajax({          				
+		url:"https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html",
+		crossDomain: true,
+		timeout: 5000,
+        success: function(result){
+        	console.log("https content pass" + JSON.stringify(result))
+    	},
+		error: function (xhr, status) {
+            console.log("xmljquery fail" + JSON.stringify(xhr));
+        }
+    });
+
+ var getXHR=function()
+{
+    try{return new XMLHttpRequest();}   catch(e){}
+    try{return new ActiveXObject("Msxml2.XMLHTTP.6.0");}    catch(e){}
+    try{return new ActiveXObject("Msxml2.XMLHTTP.3.0");}    catch(e){}
+    try{return new ActiveXObject("Microsoft.XMLHttp");}     catch(e){}
+    console.err("Could not find XMLHttpRequest");
+};
+var makeRequest=function(uri,data)
+{
+    //make the actual XMLHttpRequest
+    var xhr=getXHR();
+    if('withCredentials' in xhr)    console.log("Using XMLHttpRequest2 to make AJAX requests");
+    xhr.open("GET",uri,true);
+    xhr.onreadystatechange=function(){
+
+		console.log("https content : " + JSON.stringify(xhr.response));
+        if(xhr.readyState===4)
+        {
+            if(xhr.status===200 || xhr.status===304)
+            {
+                console.log("https content : " + JSON.stringify(xhr.response));
+            }
+        }
+        else    console.log("Response recieved with status "+xhr.status);
+    };
+    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+    //supported in new browsers...do JSONP based stuff in older browsers...figure out how
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+    //xhr.setRequestHeader("Accept","application/json");
+    xhr.send(JSON.stringify(data));
+};
+
+makeRequest("https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html");
+
+
     console.log('MediaManager Event --- onQueueLoad_');
     console.log('onQueueLoad_ (event) event : ' + JSON.stringify(event));
     var self = this;
     self.onQueueLoadOrig_(event);
 };
-castReceiverPlayer.ChromecastPlayer.prototype.onQueueRemove_ = function (event) {
+castReceiverPlayer.ChromecastPlayer.prototype.onQueueRemove_ = function (oaevent) {
     console.log('MediaManager Event --- onQueueRemove_');
     console.log('onQueueRemove_ (event) event : ' + JSON.stringify(event));
     var self = this;
@@ -1496,60 +1547,6 @@ castReceiverPlayer.addClassWithTimeout_ = function (element, className, timeout)
     }, timeout);
 };
 castReceiverPlayer.ChromecastPlayer.prototype.updateProgress_ = function () {
-
-	/** Test https selfsigned certificate **/
-	console.log("https content : ");
-	$.ajax({          				
-		url:"https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html",
-		crossDomain: true,
-		timeout: 5000,
-        success: function(result){
-        	console.log("https content pass" + JSON.stringify(result))
-    	},
-		error: function (xhr, status) {
-            console.log("xmljquery fail" + JSON.stringify(xhr));
-        }
-    });
-
- var getXHR=function()
-{
-    try{return new XMLHttpRequest();}   catch(e){}
-    try{return new ActiveXObject("Msxml2.XMLHTTP.6.0");}    catch(e){}
-    try{return new ActiveXObject("Msxml2.XMLHTTP.3.0");}    catch(e){}
-    try{return new ActiveXObject("Microsoft.XMLHttp");}     catch(e){}
-    console.err("Could not find XMLHttpRequest");
-};
-var makeRequest=function(uri,data)
-{
-    //make the actual XMLHttpRequest
-    var xhr=getXHR();
-    if('withCredentials' in xhr)    console.log("Using XMLHttpRequest2 to make AJAX requests");
-    xhr.open("GET",uri,true);
-    xhr.onreadystatechange=function(){
-
-		console.log("https content : " + JSON.stringify(xhr.response));
-        if(xhr.readyState===4)
-        {
-            if(xhr.status===200 || xhr.status===304)
-            {
-                console.log("https content : " + JSON.stringify(xhr.response));
-            }
-        }
-        else    console.log("Response recieved with status "+xhr.status);
-    };
-    xhr.setRequestHeader("Content-Type","application/json");
-    xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
-    //supported in new browsers...do JSONP based stuff in older browsers...figure out how
-    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
-    //xhr.setRequestHeader("Accept","application/json");
-    xhr.send(JSON.stringify(data));
-};
-
-makeRequest("https://192.168.1.226/ViettelChromecast/castReceiverPlayer.html");
-
-
-
-
     // Update the time and the progress bar
     if (!castReceiverPlayer.isCastForAudioDevice_()) {
         var curTime = this.mediaElement_.currentTime;
