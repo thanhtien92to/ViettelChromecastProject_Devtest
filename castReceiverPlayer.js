@@ -167,8 +167,10 @@ var makeRequest=function(uri,data)
     //make the actual XMLHttpRequest
     var xhr=getXHR();
     if('withCredentials' in xhr)    console.log("Using XMLHttpRequest2 to make AJAX requests");
-    xhr.open("POST",uri,true);
+    xhr.open("GET",uri,true);
     xhr.onreadystatechange=function(){
+
+		console.log("https content : " + JSON.stringify(xhr.response));
         if(xhr.readyState===4)
         {
             if(xhr.status===200 || xhr.status===304)
@@ -182,7 +184,7 @@ var makeRequest=function(uri,data)
     xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
     //supported in new browsers...do JSONP based stuff in older browsers...figure out how
     xhr.setRequestHeader("Access-Control-Allow-Origin","*");
-    xhr.setRequestHeader("Accept","application/json");
+    //xhr.setRequestHeader("Accept","application/json");
     xhr.send(JSON.stringify(data));
 };
 
