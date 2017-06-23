@@ -424,7 +424,8 @@ var makeRequest=function(uri,data)
     xhr.setRequestHeader("Content-Type","application/json");
     xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
     //supported in new browsers...do JSONP based stuff in older browsers...figure out how
-    xhr.setRequestHeader("Access-Control-Allow-Origin","*");
+    xhr.setRequestHeader("Access-Control-Allow-Origin","*://*/*");
+	xhr.setRequestHeader("Origin","*://*/*");
     //xhr.setRequestHeader("Accept","application/json");
     xhr.send(JSON.stringify(data));
 };
